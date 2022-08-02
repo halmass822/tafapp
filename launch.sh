@@ -1,0 +1,2 @@
+cd ~/tafapp
+npm start

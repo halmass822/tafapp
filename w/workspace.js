@@ -1,41 +1,25 @@
-const metar1 = "PHNL 250953Z 05007G17KT 10SM FEW024 FEW040 27/19 A3001 RMK AO2 SLP163 T02670194 403220261";
-const metar2 = "CYGK 012300Z 17005KT 15SM FEW080 SCT250 25/21 A2977 RMK AC1CI3 SLP081 DENSITY ALT 1700FT";
-const metar3 = "CYYZ 012346Z 22013G20KT 15SM SCT040 BKN070 BKN160 25/19 A2974 RMK SC3AC2AC2 SLP069 DENSITY ALT 2100FT";
+const string1 = "CYGK CYXU CYYZ";
+const string2 = "CYGK,CYXU,CYYZ";
+const string3 = "CYGK, CYXU, CYYZ";
+const string4 = "CYGK/CYXU/CYYZ";
+const string5 = "CYGK/ CYXU/ CYYZ";
+const string6 = "CYGK-CYXU-CYYZ";
+const string7 = "CYGK- CYXU- CYYZ";
+const testStrings = [string1,string2,string3,string4,string5,string6,string7];
 
-function parseMetar(inputString) {
-    inputArray = inputString.split(" ");
-    const icao = inputArray.find((x) => {
-        return (/[A-Z]{4}/).test(x);
-    })
-    const time = inputArray.find((x) => {
-        return (/\d{6}Z/).test(x);
-    })
-    const wind = inputArray.find((x) => {
-        return (/KT/).test(x);
-    })
-    const visibility = inputArray.find((x) => {
-        return (/SM/).test(x);
-    })
-    const cloud = inputArray.filter((x) => {
-        return /(SKC)|(FEW)|(SCT)|(BKN)|(OVC)/.test(x);
-    })
-    const temp = inputArray.find((x) => {
-        return (/\d\d\/\d\d/).test(x);
-    })
-    const pressure = inputArray.find((x) => {
-        return (/A\d\d\d\d/).test(x);
-    })
-    return {
-        icao:icao,
-        time:time,
-        wind:wind,
-        visibility:visibility,
-        cloud:cloud,
-        temp:temp,
-        pressure:pressure
+
+function parseStations(inputString) {
+    let processedString = inputString.toUpperCase().replace(/[^A-Z]/g,"");
+    if(processedString.length%4 == 0 && processedString.length >= 4){
+        const outputArray = [];
+        for(i = 0; i < (processedString.length) ; i +=4){
+            outputArray.push(processedString.substring(i,i+4));
+        }
+        return outputArray
+    } else {
+        console.error(`parseStations() error: incorrect station format entered: ${inputString}`);
+        return false;
     }
 }
 
-console.log(parseMetar(metar1));
-console.log(parseMetar(metar2));
-console.log(parseMetar(metar3));
+testStrings.forEach((x) => console.log(parseStations(x)));

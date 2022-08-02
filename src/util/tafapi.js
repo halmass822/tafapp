@@ -39,6 +39,19 @@ const TAF = {
             temp:temp,
             pressure:pressure
         }
+    },
+    parseStations(inputString) {
+        let processedString = inputString.toUpperCase().replace(/[^A-Z]/g,"");
+        if(processedString.length%4 == 0 && processedString.length >= 4){
+            const outputArray = [];
+            for(let i = 0; i < (processedString.length) ; i +=4){
+                outputArray.push(processedString.substring(i,i+4));
+            }
+            return outputArray
+        } else {
+            console.error(`parseStations() error: incorrect station format entered: ${inputString}`);
+            return false;
+        }
     }
 }
 

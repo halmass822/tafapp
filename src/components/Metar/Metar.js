@@ -5,7 +5,6 @@ export class Metar extends React.Component {
     render() {
         return <div className="metarReport">
             <div className="metarLine1">
-                <h2>{this.props.place}</h2>
                 <h2>{this.props.icao}</h2>
                 <h2>{this.props.time}</h2>
                 <h2>{this.props.wind}</h2>
