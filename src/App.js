@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import { Metar } from './components/Metar/Metar.js';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      metars: []
+    }
+  }
+  render(){
+    return (
+      <div className="App">
+        <div className="metarSection">
+          <h1 className="sectionTitle">METAR</h1>
+          {this.state.metars && this.state.metars.map((metar) => {
+            return <Metar
+              place={metar.place}
+              icao={metar.icao}
+              time={metar.time}
+              wind={metar.wind}
+              visibility={metar.visibility}
+              cloud={metar.cloud}
+              temp={metar.temp}
+              pressure={metar.pressure}
+            />
+          })}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;

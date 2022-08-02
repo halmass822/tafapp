@@ -1,0 +1,20 @@
+.metarReport {
+    border-radius: 10px;
+    border: 0.25rem solid black;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    background-color: #99EEFF;
+    display: flex;
+    flex-direction: column;
+}
+
+.metarLine1, .metarLine2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.metarReport h2 {
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}
