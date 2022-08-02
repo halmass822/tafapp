@@ -1,0 +1,35 @@
+html {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sectionTitle {
+    text-align: center;
+}
+
+.metarSection {
+    border-radius: 10px;
+    border: 0.25rem solid black;
+    padding: 1rem;
+}
+
+.metarReport {
+    border-radius: 10px;
+    border: 0.25rem solid black;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    background-color: #99EEFF;
+    display: flex;
+    flex-direction: column;
+}
+
+.metars div div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.metars div div h2 {
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}
