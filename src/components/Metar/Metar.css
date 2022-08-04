@@ -5,12 +5,6 @@
     margin: 1rem;
     background-color: #99EEFF;
     display: flex;
-    justify-content: space-between;
-}
-
-.metarLine1, .metarLine2 {
-    display: flex;
-    justify-content: space-between;
 }
 
 .metarReport h2 {
@@ -18,10 +12,33 @@
     border-radius: 0.5rem;
     padding: 0.5rem;
     display: flex;
+    margin: 0.40rem;
+    align-items: center;
 }
 
 .metarLogo {
     height: 2rem;
     width: auto;
     margin: 0 0.25rem 0 0;
+}
+
+.airport {
+    width: 6.5rem;
+}
+
+.time {
+    width: 8.22rem;
+}
+
+.wind {
+    width: 8.6rem;
+}
+
+.visibility {
+    width: 6.18rem;
+    justify-content: space-between;
+}
+
+.temp {
+    width: 6.32rem;
 }
