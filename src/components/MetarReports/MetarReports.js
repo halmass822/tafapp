@@ -47,8 +47,10 @@ export class MetarReports extends React.Component {
         <div className="metarSection">
           <div className="targetStations">
             <h1>Target stations:</h1>
-            <input id="stationInput" placeholder="CYGK,CYXU,CYYZ" onChange={this.handleStationChange}></input>
-            <button onClick={this.updateStations}>change stations</button>
+            <div className="targetStationsUI">
+              <input id="stationInput" placeholder="CYGK,CYXU,CYYZ" onChange={this.handleStationChange}></input>
+              <button onClick={this.updateStations}>change stations</button>
+            </div>
           </div>
           <h1 className="sectionTitle">METAR</h1>
           {this.state.metars && this.state.metars.map((metar) => {

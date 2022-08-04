@@ -13,3 +13,14 @@ html {
     padding: 1rem;
     margin: 1rem;
 }
+
+.targetStations {
+    display: flex;
+    align-items: center;
+    height: 2rem;
+    margin-left: 5rem;
+}
+
+.targetStationsUI {
+    margin: 0 1rem;
+}
