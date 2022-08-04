@@ -5,6 +5,7 @@
     margin: 1rem;
     background-color: #99EEFF;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .metarReport h2 {
@@ -28,10 +29,6 @@
 
 .time {
     width: 8.22rem;
-}
-
-.wind {
-    width: 8.6rem;
 }
 
 .visibility {
