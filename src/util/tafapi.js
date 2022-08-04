@@ -7,6 +7,19 @@ const TAF = {
                 return response.json();
             })
     },
+    parseStations(inputString) {
+        let processedString = inputString.toUpperCase().replace(/[^A-Z]/g,"");
+        if(processedString.length%4 === 0 && processedString.length >= 4){
+            const outputArray = [];
+            for(let i = 0; i < (processedString.length) ; i +=4){
+                outputArray.push(processedString.substring(i,i+4));
+            }
+            return outputArray
+        } else {
+            console.error(`parseStations() error: incorrect station format entered: ${inputString}`);
+            return false;
+        }
+    },
     parseMetar(inputString) {
         const inputArray = inputString.split(" ");
         const icao = inputArray.find((x) => {
@@ -45,19 +58,12 @@ const TAF = {
             pressure:pressure
         }
     },
-    parseStations(inputString) {
-        let processedString = inputString.toUpperCase().replace(/[^A-Z]/g,"");
-        if(processedString.length%4 === 0 && processedString.length >= 4){
-            const outputArray = [];
-            for(let i = 0; i < (processedString.length) ; i +=4){
-                outputArray.push(processedString.substring(i,i+4));
-            }
-            return outputArray
-        } else {
-            console.error(`parseStations() error: incorrect station format entered: ${inputString}`);
-            return false;
-        }
-    }
+    // parseTaf(inputString){
+    //     let foreCasts = [];
+    //     for (i = 0; i < inputString.length;){
+    //         inputString.findIndex()
+    //     }
+    // }
 }
 
 export default TAF;
