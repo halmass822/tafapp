@@ -1,25 +1,28 @@
-const string1 = "CYGK CYXU CYYZ";
-const string2 = "CYGK,CYXU,CYYZ";
-const string3 = "CYGK, CYXU, CYYZ";
-const string4 = "CYGK/CYXU/CYYZ";
-const string5 = "CYGK/ CYXU/ CYYZ";
-const string6 = "CYGK-CYXU-CYYZ";
-const string7 = "CYGK- CYXU- CYYZ";
-const testStrings = [string1,string2,string3,string4,string5,string6,string7];
-
-
-function parseStations(inputString) {
-    let processedString = inputString.toUpperCase().replace(/[^A-Z]/g,"");
-    if(processedString.length%4 == 0 && processedString.length >= 4){
-        const outputArray = [];
-        for(i = 0; i < (processedString.length) ; i +=4){
-            outputArray.push(processedString.substring(i,i+4));
+function getNextForecastIndex(inputTaf) {
+    const forecastBreaks = [/BECMG/, /TEMPO/, /FM\d{6}/];
+    const breakIndexes = [];
+    forecastBreaks.forEach((x) => {
+        const breakIndex = inputTaf.slice(8).search(x);
+        if(breakIndex !== -1) {
+            breakIndexes.push(breakIndex);
         }
-        return outputArray
-    } else {
-        console.error(`parseStations() error: incorrect station format entered: ${inputString}`);
-        return false;
-    }
+    });
+    console.log(breakIndexes);
+    return breakIndexes.sort()[0];
 }
 
-testStrings.forEach((x) => console.log(parseStations(x)));
+function parseTaf(inputTaf) {
+    let forecasts = [];
+    for(i = 0; i < inputTaf.length;){
+        const nextForecastIndex = getNextForecastIndex(inputTaf.slice(i));
+        const forecast = inputTaf.substring(i, nextForecastIndex);
+        console.log(forecast);
+        forecasts.push(forecast);
+        i += nextForecastIndex;
+    };
+    console.log(forecasts);
+}
+
+const testTaf = "TAF CYXU 052340Z 0600/0624 13005KT P6SM SCT030 FM060600 VRB03KT 6SM BR BKN012 FM060800 VRB03KT 1SM BR OVC004 PROB30 0608/0613 1/4SM FG VV001 FM061300 18008KT P6SM OVC012 FM061500 18010KT P6SM BKN025 RMK NXT FCST BY 060600Z"
+
+parseTaf(testTaf);

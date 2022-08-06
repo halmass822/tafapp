@@ -12,3 +12,6 @@ html {
     border: 0.25rem solid black;
     padding: 1rem;
 }
+body {
+    background-image: url(../src/tafappimg/clouds.jpeg);
+}
