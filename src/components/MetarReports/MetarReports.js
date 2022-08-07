@@ -8,6 +8,7 @@ export class MetarReports extends React.Component {
       super(props);
       this.state = {
         metars: [],
+        tafs: [],
         targetStations: ['CYGK','CYXU','CYYZ'],
         inputStationTerms: 'CYGK CYXU CYYZ'
       }
@@ -32,7 +33,15 @@ export class MetarReports extends React.Component {
           this.setState({
             metars: metars
           });
-      })
+      });
+      TAF.byStation(this.state.targetStations,'taf').then((response) => {
+        const tafs = response.data.map((x) => {
+            return TAF.parseMetar(x);
+        });
+        this.setState({
+          tafs: tafs
+        });
+      });
     }
     updateStations() {
       const targetArray = TAF.parseStations(this.state.inputStationTerms);
@@ -58,13 +67,16 @@ export class MetarReports extends React.Component {
               icao={metar.icao}
               key={metar.icao}
               time={metar.time}
+              timeFrame={metar.timeFrame}
               wind={metar.wind}
               visibility={metar.visibility}
               cloud={metar.cloud}
               temp={metar.temp}
               pressure={metar.pressure}
+              weather={metar.weather}
             />
           })}
+          <h1 className="sectionTitle">TAF</h1>
         </div>
       );
     }

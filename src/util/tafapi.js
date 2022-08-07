@@ -59,6 +59,12 @@ const TAF = {
         const time = inputArray.find((x) => {
             return (/\d{6}Z/).test(x);
         })
+        const timeFrame = inputArray.find((x) => {
+            return (/\d{4}\d{4}/).test(x);
+        })
+        const forecastPrepend = inputArray.find((x) => {
+            return (/BECMG|TEMPO|FM\d{6}|PROB\d\d/g).test(x);
+        })
         const processedTime = `${ordinalDate(time.slice(0,2))}, ${time.slice(2)}`;
         const wind = inputArray.find((x) => {
             return (/KT/).test(x);
@@ -71,7 +77,7 @@ const TAF = {
             return (/SM/).test(x);
         })
         let cloud = inputArray.filter((x) => {
-            return /(SKC)|(FEW)|(SCT)|(BKN)|(OVC)/.test(x);
+            return /(SKC)|(FEW)|(SCT)|(BKN)|(OVC)|VV/.test(x);
         }).join(" ")
         let processedCloud = [];
         for(let i = 0; i < cloud.length ; i+=6){
@@ -83,25 +89,28 @@ const TAF = {
         const pressure = inputArray.find((x) => {
             return (/A\d\d\d\d/).test(x);
         })
+        const weather = inputArray.filter((x) => /BR|DZ|FZ|IC|RA|SN|VA|DR|FG|GR|MI|SA|SQ|VC|BC|DS|FC|GS|PL|SG|SS|UP|BL|DU|FU|HZ|PO|SH|TS|RE/g.test(x)).join(" ");
         return {
             icao:icao,
             time:processedTime,
+            timeFrame:timeFrame,
+            forecastPrepend:forecastPrepend,
             wind:processedWind,
             visibility:visibility,
             cloud:processedCloud,
             temp:temp,
-            pressure:pressure
+            pressure:pressure,
+            weather:weather
         }
     },
-    // parseTaf(inputTaf) {
-    //     let forecasts = [];
-    //     for(i = 0; i < inputTaf.length;){
-    //         const forecast = inputTaf.substring(i, getNextForecastIndex(inputTaf.slice(i)));
-    //         console.log(forecast);
-    //         forecasts.push(forecast);
-    //     };
-        
-    // }
+    parseTaf(inputTaf) {
+        let output = [];
+        const tafArrays = inputTaf.replaceAll(/BECMG|TEMPO|FM\d{6}|PROB\d\d/g, (match) => {
+            return match + '-'
+        }).split('-');
+        tafArrays.forEach((x) => output.push(TAF.parseMetar(x)));
+        return output;
+    }
 }
 
 export default TAF;
