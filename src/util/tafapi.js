@@ -63,26 +63,22 @@ const TAF = {
             return (/\d{4}\d{4}/).test(x);
         })
         const forecastPrepend = inputArray.find((x) => {
-            return (/BECMG|TEMPO|FM\d{6}|PROB\d\d/g).test(x);
+            return (/BECMG|TEMPO|FM\d{6}|PROB\d\d|TAF/g).test(x);
         })
-        const processedTime = `${ordinalDate(time.slice(0,2))}, ${time.slice(2)}`;
+        const processedTime = time ? `${ordinalDate(time.slice(0,2))}, ${time.slice(2)}` : "";
         const wind = inputArray.find((x) => {
             return (/KT/).test(x);
         })
         const windVariation = inputArray.find((x) => {
             return (/\d{3}V\d{3}/).test(x);
         })
-        const processedWind = `${wind.slice(0,3)}° ${wind.slice(3)} ${windVariation ? windVariation : ""}`;
+        const processedWind = wind ? `${wind.slice(0,3)}° ${wind.slice(3)} ${windVariation ? windVariation : ""}` : "";
         const visibility = inputArray.find((x) => {
             return (/SM/).test(x);
         })
         let cloud = inputArray.filter((x) => {
             return /(SKC)|(FEW)|(SCT)|(BKN)|(OVC)|VV/.test(x);
         }).join(" ")
-        let processedCloud = [];
-        for(let i = 0; i < cloud.length ; i+=6){
-            processedCloud.push(`${cloud.slice(i,i+6)}`);
-        }
         const temp = inputArray.find((x) => {
             return (/\d\d\/\d\d/).test(x);
         })
@@ -90,25 +86,38 @@ const TAF = {
             return (/A\d\d\d\d/).test(x);
         })
         const weather = inputArray.filter((x) => /BR|DZ|FZ|IC|RA|SN|VA|DR|FG|GR|MI|SA|SQ|VC|BC|DS|FC|GS|PL|SG|SS|UP|BL|DU|FU|HZ|PO|SH|TS|RE/g.test(x)).join(" ");
-        return {
+        const output = {
             icao:icao,
             time:processedTime,
             timeFrame:timeFrame,
             forecastPrepend:forecastPrepend,
             wind:processedWind,
             visibility:visibility,
-            cloud:processedCloud,
+            cloud:cloud,
             temp:temp,
             pressure:pressure,
             weather:weather
         }
+        return output;
     },
     parseTaf(inputTaf) {
-        let output = [];
+        const forecastTime = inputTaf.match(/\d{6}Z/);
+        const processedForecastTime = forecastTime[0] ? `${ordinalDate(forecastTime[0].slice(0,2))}, ${forecastTime[0].slice(2)}` : "";
+        let output = {
+            icao: inputTaf.match(/[A-Z]{4}/),
+            forecastTime: processedForecastTime,
+            forecasts: [],
+        };
+        const remarksIndex = inputTaf.search(/RMK/);
+        if(remarksIndex !== -1) {
+            output.forecastRemarks = inputTaf.substring(remarksIndex)
+            console.log(`${output.forecastRemarks} spliced out`);
+            inputTaf = inputTaf.substring(0,remarksIndex);
+        }
         const tafArrays = inputTaf.replaceAll(/BECMG|TEMPO|FM\d{6}|PROB\d\d/g, (match) => {
-            return match + '-'
-        }).split('-');
-        tafArrays.forEach((x) => output.push(TAF.parseMetar(x)));
+            return '|' + match
+        }).split('|');
+        tafArrays.forEach((x) => output.forecasts.push(TAF.parseMetar(x)));
         return output;
     }
 }

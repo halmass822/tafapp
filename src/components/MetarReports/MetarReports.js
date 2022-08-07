@@ -36,7 +36,7 @@ export class MetarReports extends React.Component {
       });
       TAF.byStation(this.state.targetStations,'taf').then((response) => {
         const tafs = response.data.map((x) => {
-            return TAF.parseMetar(x);
+            return TAF.parseTaf(x);
         });
         this.setState({
           tafs: tafs
