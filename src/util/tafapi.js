@@ -82,7 +82,9 @@ const TAF = {
         const pressure = inputArray.find((x) => {
             return (/A\d\d\d\d/).test(x);
         })
-        let weather = inputArray.filter((x) => /BR|DZ|FZ|IC|RA|SN|VA|DR|FG|GR|MI|SA|SQ|VC|BC|DS|FC|GS|PL|SG|SS|UP|BL|DU|FU|HZ|PO|SH|TS|RE/g.test(x)).join(" ");
+        let weather = inputArray.filter((x) => {
+            return /BR|DZ|FZ|IC|RA|SN|VA|DR|FG|GR|MI|SA|SQ|VC|BC|DS|FC|GS|PL|SG|SS|UP|BL|DU|FU|HZ|PO|SH|TS|RE/g.test(x) && !(/[A-Z]{3}\d{3}/g.test(x))
+        }).join(" ");
         if(icao) {
             weather = weather.replaceAll(icao,"");
         }
