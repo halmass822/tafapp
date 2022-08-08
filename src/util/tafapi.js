@@ -19,23 +19,17 @@ function ordinalDate(inputNumber) {
     }
 }
 
-function getNextForecastIndex(inputTaf) {
-    const forecastBreaks = [/BECMG/, /TEMPO/, /FM\d{6}/];
-    const breakIndexes = [];
-    forecastBreaks.forEach((x) => {
-        const breakIndex = inputTaf.search(x);
-        if(breakIndex !== -1) {
-            breakIndexes.push(breakIndex);
-        }
-    });
-    console.log(breakIndexes);
-    return breakIndexes.sort()[0];
-}
-
 const TAF = {
     byStation(stations,type){
         return fetch(`https://api.checkwx.com/${type}/${stations.join(',')}`, { headers: authHeader }).then((response) => {
-                return response.json();
+                return response = response.json().then((jsonResponse) => {
+                    let output = []; 
+                    stations.forEach((station) => {
+                        let relatedReport = jsonResponse.data.find((x) => x.includes(station));
+                        output.push(relatedReport);
+                        })
+                    return output;
+                })
             })
     },
     parseStations(inputString) {

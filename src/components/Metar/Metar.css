@@ -1,6 +1,6 @@
 .metarReport {
     padding: 0.5rem 1rem;
-    margin: 1rem;
+    margin: 0.15rem;
     border: 0.25rem solid black;
     border-radius: 10px;
     background-color: blue;
@@ -16,7 +16,6 @@
     margin: 0.40rem;
     align-items: center;
     padding-right: 1rem;
-    min-height: 3.58rem;
 }
 
 .metarLogo {

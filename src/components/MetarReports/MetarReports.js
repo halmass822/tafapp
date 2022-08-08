@@ -26,9 +26,8 @@ export class MetarReports extends React.Component {
       })
     }
     getMetarReports() {
-      console.log(`getMetarReports() run\ntargetStations: ${this.state.targetStations}`);
       TAF.byStation(this.state.targetStations,'metar').then((response) => {
-          const metars = response.data.map((x) => {
+          const metars = response.map((x) => {
               return TAF.parseMetar(x);
           });
           this.setState({
@@ -36,7 +35,7 @@ export class MetarReports extends React.Component {
           });
       });
       TAF.byStation(this.state.targetStations,'taf').then((response) => {
-        const tafs = response.data.map((x) => {
+        const tafs = response.map((x) => {
             return TAF.parseTaf(x);
         });
         this.setState({

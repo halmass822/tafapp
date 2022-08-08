@@ -1,12 +1,11 @@
 .tafReport {
     padding: 0.5rem 1rem;
-    margin: 1rem;
+    margin: 0.15rem;
     border: 0.25rem solid black;
     border-radius: 10px;
     background-color: blue;
     display: flex;
     flex-flow: column;
-
 }
 
 .tafReport h2 {
@@ -17,7 +16,6 @@
     margin: 0.40rem;
     align-items: center;
     padding-right: 1rem;
-    min-height: 3.58rem;
 }
 
 .tafHeader {
@@ -43,19 +41,7 @@
     margin: 0 0.25rem 0 0;
 }
 
-.airport {
-    width: 6.5rem;
-}
-
-.time {
-    width: 8.22rem;
-}
-
 .visibility {
     width: 6.18rem;
     justify-content: space-between;
-}
-
-.temp {
-    width: 6.32rem;
 }
