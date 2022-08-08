@@ -59,6 +59,9 @@ const TAF = {
         const time = inputArray.find((x) => {
             return (/\d{6}Z/).test(x);
         })
+        const tafTime = inputArray.find((x) => {
+            return (/\d{4}\/\d{4}/).test(x);
+        })
         const timeFrame = inputArray.find((x) => {
             return (/\d{4}\d{4}/).test(x);
         })
@@ -80,15 +83,19 @@ const TAF = {
             return /(SKC)|(FEW)|(SCT)|(BKN)|(OVC)|VV/.test(x);
         }).join(" ")
         const temp = inputArray.find((x) => {
-            return (/\d\d\/\d\d/).test(x);
+            return (/^\d\d\/\d\d/).test(x);
         })
         const pressure = inputArray.find((x) => {
             return (/A\d\d\d\d/).test(x);
         })
-        const weather = inputArray.filter((x) => /BR|DZ|FZ|IC|RA|SN|VA|DR|FG|GR|MI|SA|SQ|VC|BC|DS|FC|GS|PL|SG|SS|UP|BL|DU|FU|HZ|PO|SH|TS|RE/g.test(x)).join(" ");
+        let weather = inputArray.filter((x) => /BR|DZ|FZ|IC|RA|SN|VA|DR|FG|GR|MI|SA|SQ|VC|BC|DS|FC|GS|PL|SG|SS|UP|BL|DU|FU|HZ|PO|SH|TS|RE/g.test(x)).join(" ");
+        if(icao) {
+            weather = weather.replaceAll(icao,"");
+        }
         const output = {
             icao:icao,
             time:processedTime,
+            tafTime:tafTime,
             timeFrame:timeFrame,
             forecastPrepend:forecastPrepend,
             wind:processedWind,
@@ -110,8 +117,7 @@ const TAF = {
         };
         const remarksIndex = inputTaf.search(/RMK/);
         if(remarksIndex !== -1) {
-            output.forecastRemarks = inputTaf.substring(remarksIndex)
-            console.log(`${output.forecastRemarks} spliced out`);
+            output.forecastRemarks = inputTaf.substring(remarksIndex);
             inputTaf = inputTaf.substring(0,remarksIndex);
         }
         const tafArrays = inputTaf.replaceAll(/BECMG|TEMPO|FM\d{6}|PROB\d\d/g, (match) => {

@@ -1,9 +1,9 @@
 .metarReport {
-    border-radius: 10px;
-    border: 0.25rem solid black;
     padding: 0.5rem 1rem;
     margin: 1rem;
-    background-color: #99EEFF;
+    border: 0.25rem solid black;
+    border-radius: 10px;
+    background-color: blue;
     display: flex;
     flex-wrap: wrap;
 }
@@ -31,10 +31,6 @@
 
 .time {
     width: 8.22rem;
-}
-
-.wind {
-    width: 12.2rem;
 }
 
 .visibility {

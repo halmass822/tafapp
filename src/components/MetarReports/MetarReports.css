@@ -7,9 +7,9 @@ html {
     text-align: center;
 }
 
-.metarSection {
+.app {
     border-radius: 10px;
-    border: 0.25rem solid black;
+    border: 0.15rem solid black;
     padding: 1rem;
     margin: 1rem;
     background-color: rgba(153, 255, 213, 0.8);
@@ -19,9 +19,19 @@ html {
     display: flex;
     align-items: center;
     height: 2rem;
-    margin-left: 1rem;
+    margin: 0 0 1rem 2rem;
 }
 
 .targetStationsUI {
     margin: 0 1rem;
+}
+
+.metarSection, .tafSection {
+    border-radius: 10px;
+    background-color: rgb(51 218 255);
+    border: 0.15rem solid black;
+    display: flex;
+    flex-flow: column;
+    padding: 0 0.25rem;
+    margin: 1.5rem 0;
 }

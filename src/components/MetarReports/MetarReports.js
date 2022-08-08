@@ -2,6 +2,7 @@ import React from 'react';
 import { Metar } from '../Metar/Metar.js';
 import './MetarReports.css';
 import TAF from '../../util/tafapi.js';
+import { Taf } from '../Taf/Taf.js'
 
 export class MetarReports extends React.Component {
     constructor(props){
@@ -53,30 +54,43 @@ export class MetarReports extends React.Component {
     }
     render() {
       return (
-        <div className="metarSection">
+        <div className="app">
           <div className="targetStations">
             <h1>Target stations:</h1>
             <div className="targetStationsUI">
               <input id="stationInput" placeholder="CYGK,CYXU,CYYZ" onChange={this.handleStationChange}></input>
               <button onClick={this.updateStations}>change stations</button>
             </div>
+          </div>  
+          <div className="metarSection">
+            <h1 className="sectionTitle">METAR</h1>
+            {this.state.metars && this.state.metars.map((metar) => {
+              return <Metar
+                icao={metar.icao}
+                key={metar.icao}
+                time={metar.time}
+                timeFrame={metar.timeFrame}
+                wind={metar.wind}
+                visibility={metar.visibility}
+                cloud={metar.cloud}
+                temp={metar.temp}
+                pressure={metar.pressure}
+                weather={metar.weather}
+              />
+            })}
           </div>
-          <h1 className="sectionTitle">METAR</h1>
-          {this.state.metars && this.state.metars.map((metar) => {
-            return <Metar
-              icao={metar.icao}
-              key={metar.icao}
-              time={metar.time}
-              timeFrame={metar.timeFrame}
-              wind={metar.wind}
-              visibility={metar.visibility}
-              cloud={metar.cloud}
-              temp={metar.temp}
-              pressure={metar.pressure}
-              weather={metar.weather}
-            />
-          })}
-          <h1 className="sectionTitle">TAF</h1>
+          <div className="tafSection">
+            <h1 className="sectionTitle">TAF</h1>
+            {this.state.tafs && this.state.tafs.map((taf) => {
+              return <Taf
+                icao={taf.icao}
+                key={taf.icao}
+                forecastTime={taf.forecastTime}
+                forecasts={taf.forecasts}
+                forecastRemarks={taf.forecastRemarks}
+              />
+            })}
+          </div>
         </div>
       );
     }
