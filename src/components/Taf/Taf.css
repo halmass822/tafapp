@@ -3,7 +3,7 @@
     margin: 0.15rem;
     border: 0.25rem solid black;
     border-radius: 10px;
-    background-color: blue;
+    background-color: rgb(38 153 179 / 31%);
     display: flex;
     flex-flow: column;
 }
