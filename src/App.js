@@ -1,6 +1,6 @@
 import './App.css';
-import { Metar } from './components/Metar/Metar.js';
 import React from 'react';
+import { MetarReports } from './components/MetarReports/MetarReports';
 
 export class App extends React.Component {
   constructor(props){
