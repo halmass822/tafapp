@@ -26,7 +26,9 @@ const TAF = {
                     let output = []; 
                     stations.forEach((station) => {
                         let relatedReport = jsonResponse.data.find((x) => x.includes(station));
-                        output.push(relatedReport);
+                        if(relatedReport) {
+                            output.push(relatedReport);
+                        }
                         })
                     return output;
                 })
