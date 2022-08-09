@@ -6,16 +6,12 @@ function ordinalDate(inputNumber) {
     switch(inputNumber){
         case 1 || 21:
             return `${inputNumber}st`
-        break;
         case 2 || 22:
             return `${inputNumber}nd`
-        break;
         case 3 || 23:
             return `${inputNumber}rd`
-        break;
         default:
             return `${inputNumber}th`
-        break;
     }
 }
 
