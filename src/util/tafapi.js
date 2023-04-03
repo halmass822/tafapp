@@ -1,4 +1,4 @@
-const APIKey = "888d5c782c2c48e2a2e0215147";
+const APIKey = "";
 const authHeader = {"X-API-KEY": APIKey};
 
 function ordinalDate(inputNumber) {
